@@ -5,11 +5,7 @@ export function buildTasksUrl(baseUrl, options = {}) {
   // console.log(baseUrl);
   if (typeof baseUrl === "string" && baseUrl.length > 0) {
     baseUrl = baseUrl.trim();
-    let i = baseUrl.length - 1;
-    while (baseUrl[i] === "/") {
-      i -= 1;
-    }
-    baseUrl = baseUrl.slice(0, i + 1);
+    baseUrl = baseUrl.replace(/\/+$/, "");
 
     let url = new URL(baseUrl);
     url.pathname += "/tasks";
