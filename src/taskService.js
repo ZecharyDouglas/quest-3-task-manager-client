@@ -31,10 +31,27 @@ export function buildTasksUrl(baseUrl, options = {}) {
 
 export async function fetchCurrentUser(baseUrl) {
   // TODO
+  let url = new URL(baseUrl);
+  url.pathname += `/users/7`;
+  // console.log(url);
+  return fetch(url).then((res) => {
+    if (!res.ok) {
+      throw new TypeError("Failed to fetch Current User.");
+    }
+    return res.json();
+  });
 }
 
 export async function fetchTasks(baseUrl, options = {}) {
   // TODO
+  const url = buildTasksUrl(baseUrl, options);
+  console.log(url);
+  return fetch(url).then((res) => {
+    if (!res.ok) {
+      throw new TypeError("Failed to fetch Current User.");
+    }
+    return res.json();
+  });
 }
 
 export function createTaskInstances(records) {
