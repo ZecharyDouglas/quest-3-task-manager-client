@@ -45,7 +45,7 @@ export async function fetchCurrentUser(baseUrl) {
 export async function fetchTasks(baseUrl, options = {}) {
   // TODO
   const url = buildTasksUrl(baseUrl, options);
-  console.log(url);
+  // console.log(url);
   return fetch(url).then((res) => {
     if (!res.ok) {
       throw new TypeError("Failed to fetch Current User.");
@@ -56,10 +56,47 @@ export async function fetchTasks(baseUrl, options = {}) {
 
 export function createTaskInstances(records) {
   // TODO
+
+  const task_instances = records.map((rec) => {
+    if (rec.priority === "urgent") {
+      return new UrgentTask(
+        rec.id,
+        rec.title,
+        rec.status,
+        rec.priority,
+        rec.ownerId,
+        rec.escalationNote,
+      );
+    } else {
+      return new Task(rec.id, rec.title, rec.status, rec.priority, rec.ownerId);
+    }
+  });
+  console.log(task_instances);
+  return task_instances;
 }
 
 export function summarizeTasks(tasks) {
   // TODO
+  //   {
+  //   total,
+  //   completed,
+  //   active,
+  //   urgent
+  // }
+  const task_summary = tasks.reduce(
+    (acc, curr) => {
+      return {
+        total: (acc.total += 1),
+        completed:
+          curr.status === "completed" ? (acc.completed += 1) : acc.completed,
+        active: curr.status !== "completed" ? (acc.active += 1) : acc.active,
+        urgent: curr.priority === "urgent" ? (acc.urgent += 1) : acc.urgent,
+      };
+    },
+    { total: 0, completed: 0, active: 0, urgent: 0 },
+  );
+  console.log(task_summary);
+  return task_summary;
 }
 
 export function rankTasks(tasks) {
