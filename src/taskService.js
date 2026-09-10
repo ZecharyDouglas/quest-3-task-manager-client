@@ -71,7 +71,7 @@ export function createTaskInstances(records) {
       return new Task(rec.id, rec.title, rec.status, rec.priority, rec.ownerId);
     }
   });
-  console.log(task_instances);
+
   return task_instances;
 }
 
@@ -95,10 +95,37 @@ export function summarizeTasks(tasks) {
     },
     { total: 0, completed: 0, active: 0, urgent: 0 },
   );
-  console.log(task_summary);
+
   return task_summary;
 }
 
 export function rankTasks(tasks) {
   // TODO
+  let pre_rank = tasks.map((t) => {
+    let x;
+    let y;
+    if (t.priority === "urgent") {
+      x = 0;
+    } else if (t.priority === "high") {
+      x = 1;
+    } else if (t.priority === "medium") {
+      x = 2;
+    } else if (t.priority === "low") {
+      x = 3;
+    }
+    if (t.status == "active") y = 0;
+    else y = 1;
+    return { ...t, cheatersField: x, cheatersField2: y };
+  });
+  pre_rank.sort((a, b) =>
+    a.priority === b.priority
+      ? a.cheatersField2 - b.cheatersField2
+      : a.cheatersField - b.cheatersField,
+  );
+  const rankedTasks = pre_rank.map((task) => {
+    const { cheatersField, cheatersField2, ...rest } = task;
+    return rest;
+  });
+  console.log(rankedTasks);
+  return rankedTasks;
 }
