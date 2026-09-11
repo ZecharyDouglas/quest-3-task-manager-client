@@ -11,34 +11,42 @@ export function renderUser(user, documentRef = document) {
 
 export function renderTaskList(tasks, documentRef = document) {
   // TODO
-  console.log(tasks);
   const task_list = documentRef.getElementById("task-list");
-  const task_cards = tasks.forEach((task) => {
-    const card = documentRef.createElement("div");
-    card.className = "task-card";
+  //clear the old contents
+  task_list.replaceChildren();
 
-    const title = documentRef.createElement("h3");
-    title.className = "task-title";
-    title.textContent = task.title;
+  if (tasks.length == 0) {
+    const empty_card = documentRef.createElement("div");
+    empty_card.className = "empty-state";
+    task_list.appendChild(empty_card);
+  } else {
+    tasks.forEach((task) => {
+      const card = documentRef.createElement("div");
+      card.className = "task-card";
 
-    const status = documentRef.createElement("span");
-    status.className = "task-status";
-    status.textContent = task.status;
+      const title = documentRef.createElement("h3");
+      title.className = "task-title";
+      title.textContent = task.title;
 
-    const priority = documentRef.createElement("span");
-    priority.className = "task-priority";
-    priority.textContent = task.priority;
+      const status = documentRef.createElement("span");
+      status.className = "task-status";
+      status.textContent = task.status;
 
-    const escalation = documentRef.createElement("span");
-    escalation.className = "task-escalation";
-    escalation.textContent = `URGENT: ${task.escalationNote}`;
+      const priority = documentRef.createElement("span");
+      priority.className = "task-priority";
+      priority.textContent = task.priority;
 
-    card.appendChild(title);
-    card.appendChild(status);
-    card.appendChild(priority);
-    card.appendChild(escalation);
-    task_list.appendChild(card);
-  });
+      const escalation = documentRef.createElement("span");
+      escalation.className = "task-escalation";
+      escalation.textContent = `URGENT: ${task.escalationNote}`;
+
+      card.appendChild(title);
+      card.appendChild(status);
+      card.appendChild(priority);
+      card.appendChild(escalation);
+      task_list.appendChild(card);
+    });
+  }
 }
 
 export function renderStats(summary, documentRef = document) {
