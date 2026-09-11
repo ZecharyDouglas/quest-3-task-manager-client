@@ -51,4 +51,12 @@ export function renderTaskList(tasks, documentRef = document) {
 
 export function renderStats(summary, documentRef = document) {
   // TODO
+  const total = documentRef.getElementById("stat-total");
+  const completed = documentRef.getElementById("stat-completed");
+  const active = documentRef.getElementById("stat-active");
+  const urgent = documentRef.getElementById("stat-urgent");
+  total.textContent = summary.total;
+  completed.textContent = summary.completed;
+  active.textContent = summary.active;
+  urgent.textContent = summary.urgent;
 }
