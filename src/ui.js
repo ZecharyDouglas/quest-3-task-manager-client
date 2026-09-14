@@ -1,4 +1,4 @@
-import { UrgentTask } from "./models.js";
+import { UrgentTask, Task } from "./models.js";
 
 export function renderUser(user, documentRef = document) {
   // TODO
