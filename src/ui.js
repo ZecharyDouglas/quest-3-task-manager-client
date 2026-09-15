@@ -36,14 +36,15 @@ export function renderTaskList(tasks, documentRef = document) {
       priority.className = "task-priority";
       priority.textContent = task.priority;
 
-      const escalation = documentRef.createElement("span");
-      escalation.className = "task-escalation";
-      escalation.textContent = `URGENT: ${task.escalationNote}`;
-
       card.appendChild(title);
       card.appendChild(status);
       card.appendChild(priority);
-      card.appendChild(escalation);
+      if (task.priority === "urgent") {
+        const escalation = documentRef.createElement("span");
+        escalation.className = "task-escalation";
+        escalation.textContent = `URGENT: ${task.escalationNote}`;
+        card.appendChild(escalation);
+      }
       task_list.appendChild(card);
     });
   }

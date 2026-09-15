@@ -1,80 +1,86 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quest 3 Task Manager</title>
-  <link rel="stylesheet" href="./styles.css" />
-</head>
-<body>
-  <main class="shell">
-    <header class="topbar">
-      <div>
-        <p class="eyebrow">QUEST 3</p>
-        <h1>Task Manager</h1>
-      </div>
-      <section class="user-panel" aria-label="Signed in user">
-        <strong id="user-name">Loading user…</strong>
-        <span id="user-email"></span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quest 3 Task Manager</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">QUEST 3</p>
+          <h1>Task Manager</h1>
+        </div>
+        <section class="user-panel" aria-label="Signed in user">
+          <strong id="user-name">Loading user…</strong>
+          <span id="user-email"></span>
+        </section>
+      </header>
+
+      <p id="loading-message" class="message">Loading…</p>
+      <p id="error-message" class="message error" hidden></p>
+
+      <section class="stats-grid" aria-label="Task statistics">
+        <article><span>Total</span><strong id="stat-total">0</strong></article>
+        <article>
+          <span>Completed</span><strong id="stat-completed">0</strong>
+        </article>
+        <article>
+          <span>Active</span><strong id="stat-active">0</strong>
+        </article>
+        <article>
+          <span>Urgent</span><strong id="stat-urgent">0</strong>
+        </article>
       </section>
-    </header>
 
-    <p id="loading-message" class="message">Loading…</p>
-    <p id="error-message" class="message error" hidden></p>
+      <section class="controls-grid">
+        <form id="filter-form" class="panel">
+          <h2>Filter tasks</h2>
+          <label for="status-filter">Status</label>
+          <select id="status-filter">
+            <option value="">All</option>
+            <option value="active">Active</option>
+            <option value="completed">Completed</option>
+          </select>
 
-    <section class="stats-grid" aria-label="Task statistics">
-      <article><span>Total</span><strong id="stat-total">0</strong></article>
-      <article><span>Completed</span><strong id="stat-completed">0</strong></article>
-      <article><span>Active</span><strong id="stat-active">0</strong></article>
-      <article><span>Urgent</span><strong id="stat-urgent">0</strong></article>
-    </section>
+          <label for="priority-filter">Priority</label>
+          <select id="priority-filter">
+            <option value="">All</option>
+            <option value="urgent">Urgent</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
 
-    <section class="controls-grid">
-      <form id="filter-form" class="panel">
-        <h2>Filter tasks</h2>
-        <label for="status-filter">Status</label>
-        <select id="status-filter">
-          <option value="">All</option>
-          <option value="active">Active</option>
-          <option value="completed">Completed</option>
-        </select>
+          <button type="submit">Apply filters</button>
+        </form>
 
-        <label for="priority-filter">Priority</label>
-        <select id="priority-filter">
-          <option value="">All</option>
-          <option value="urgent">Urgent</option>
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-        </select>
+        <form id="task-form" class="panel">
+          <h2>Add task</h2>
+          <label for="task-title-input">Title</label>
+          <input id="task-title-input" type="text" autocomplete="off" />
 
-        <button type="submit">Apply filters</button>
-      </form>
+          <label for="task-priority-input">Priority</label>
+          <select id="task-priority-input">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+            <option value="urgent">Urgent</option>
+          </select>
 
-      <form id="task-form" class="panel">
-        <h2>Add task</h2>
-        <label for="task-title-input">Title</label>
-        <input id="task-title-input" type="text" autocomplete="off" />
+          <button type="submit">Create task</button>
+          <p id="task-form-error" class="form-error" hidden></p>
+        </form>
+      </section>
 
-        <label for="task-priority-input">Priority</label>
-        <select id="task-priority-input">
-          <option value="low">Low</option>
-          <option value="medium" selected>Medium</option>
-          <option value="high">High</option>
-          <option value="urgent">Urgent</option>
-        </select>
+      <section class="panel">
+        <h2>Tasks</h2>
+        <div id="task-list" class="task-list"></div>
+      </section>
+    </main>
 
-        <button type="submit">Create task</button>
-        <p id="task-form-error" class="form-error" hidden></p>
-      </form>
-    </section>
-
-    <section class="panel">
-      <h2>Tasks</h2>
-      <div id="task-list" class="task-list"></div>
-    </section>
-  </main>
-
-  <script type="module" src="./src/app.js"></script>
-</body>
+    <script type="module" src="./src/app.js"></script>
+  </body>
 </html>
